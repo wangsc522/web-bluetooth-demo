@@ -1,4 +1,4 @@
-var version = '2'
+var version = '3'
 
 var log = function (message) {
   console.log(message)
