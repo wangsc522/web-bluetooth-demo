@@ -7,8 +7,7 @@ async function automaticReconnect () {
   try {
     log('Requesting any Bluetooth Device...')
     // https://developer.mozilla.org/en-US/docs/Web/API/Bluetooth/requestDevice
-    bluetoothDevice = await navigator.bluetooth.requestDevice({
-      filters: [{'name': 'blue2'}])
+    bluetoothDevice = await navigator.bluetooth.requestDevice({filters: [{name: 'blue2'}]})
     bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected)
     connect()
   } catch (error) {
