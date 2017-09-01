@@ -7,7 +7,7 @@ async function automaticReconnect () {
   try {
     log('Requesting any Bluetooth Device...')
     bluetoothDevice = await navigator.bluetooth.requestDevice({
-     // filters: [...] <- Prefer filters to save energy & show relevant devices.
+      filters: ['blue2'], // <- Prefer filters to save energy & show relevant devices.
       acceptAllDevices: true})
     bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected)
     connect()
