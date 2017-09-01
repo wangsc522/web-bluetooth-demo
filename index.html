@@ -1,76 +1,19 @@
 <html>
 
 <head>
-  <style>
-    #mybutton {
-      width: 80%;
-      height: 100px;
-    }
-
-    #log {
-      font-size: 20px;
-    }
-
-  </style>
-
-
+  <link href="/css/app.css" rel="stylesheet" />
 </head>
 
 <body>
-  <button id="mybutton" onclick="run()">Click me</button>
+  <div class="command">
+    <button id="start-demo" class="simple-button">Start demo</button>
+  </div>
   <div id="log"></div>
+
+  <script src="/js/utils.js" type="text/javascript" defer></script>
+  <script src="/js/automatic-reconnect-async-await.js" type="text/javascript" defer></script>
+  <script src="/js/events.js" type="text/javascript" defer></script>
+  <script src="/js/app.js" type="text/javascript" defer></script>
 </body>
-
-
-<script>
-  var version = '0.0.1'
-
-  var log = function(message) {
-    console.log(message);
-    document.getElementById('log').innerHTML += message + '<br>';
-  }
-
-  log('Version ' + version);
-
-  var requestBluetoothDevice = function() {
-
-    try {
-      if (!navigator) {
-        log('Error no navigator object!')
-        return
-      }
-
-      if (!navigator.bluetooth) {
-        log('Error no navigator.bluetooth object!')
-        return
-      }
-
-      if (!navigator.bluetooth.requestDevice) {
-        log('Error no navigator.bluetooth.requestDevice object!')
-        return
-      }
-
-      let options = {};
-      options.acceptAllDevices = true;
-      navigator.bluetooth.requestDevice(options)
-        .then(device => {
-          console.log(device)
-          log('Name: ' + device.name)
-          log('Id: ' + device.id)
-          log('Connected: ' + device.gatt.connected)
-        })
-        .catch(error => {
-          log('Error ' + error)
-        });
-    } catch (e) {
-      log('Error ' + e)
-    }
-  }
-
-  function run() {
-    requestBluetoothDevice()
-  }
-
-</script>
 
 </html>

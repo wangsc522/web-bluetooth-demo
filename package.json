@@ -1,0 +1,20 @@
+{
+  "name": "web-bluetooth-demo",
+  "version": "0.0.1",
+  "description": "Web bluetooth demo",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": ""
+  },
+  "author": "Simon Hutchison",
+  "license": "MIT",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "https://hutch120.github.io/web-bluetooth-demo/",
+  "dependencies": {},
+  "standard": {
+    "globals": ["Events", "log", "Utils"]
+  }
+}

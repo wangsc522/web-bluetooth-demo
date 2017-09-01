@@ -1,0 +1,12 @@
+.command {
+  padding: 10px;
+}
+
+.simple-button {
+  width: 200px;
+  height: 80px;
+}
+
+#log {
+  font-size: 20px;
+}
