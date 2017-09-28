@@ -12,19 +12,53 @@ function Blue2CA () {
     }
   }
 
+  /*
+  <option value="alert_notification">alert_notification</option>
+    <option value="automation_io">automation_io</option>
+    <option value="battery_service">battery_service</option>
+    <option value="blood_pressure">blood_pressure</option>
+    <option value="body_composition">body_composition</option>
+    <option value="bond_management">bond_management</option>
+    <option value="continuous_glucose_monitoring">continuous_glucose_monitoring</option>
+    <option value="current_time">current_time</option>
+    <option value="cycling_power">cycling_power</option>
+    <option value="cycling_speed_and_cadence">cycling_speed_and_cadence</option>
+    <option value="device_information">device_information</option>
+    <option value="environmental_sensing">environmental_sensing</option>
+    <option value="generic_access">generic_access</option>
+    <option value="generic_attribute">generic_attribute</option>
+    <option value="glucose">glucose</option>
+    <option value="health_thermometer">health_thermometer</option>
+    <option value="heart_rate">heart_rate</option>
+    <option value="human_interface_device">human_interface_device (blacklisted)</option>
+    <option value="immediate_alert">immediate_alert</option>
+    <option value="indoor_positioning">indoor_positioning</option>
+    <option value="internet_protocol_support">internet_protocol_support</option>
+    <option value="link_loss">link_loss</option>
+    <option value="location_and_navigation">location_and_navigation</option>
+    <option value="next_dst_change">next_dst_change</option>
+    <option value="phone_alert_status">phone_alert_status</option>
+    <option value="pulse_oximeter">pulse_oximeter</option>
+    <option value="reference_time_update">reference_time_update</option>
+    <option value="running_speed_and_cadence">running_speed_and_cadence</option>
+    <option value="scan_parameters">scan_parameters</option>
+    <option value="tx_power">tx_power</option>
+    <option value="user_data">user_data</option>
+    <option value="weight_scale">weight_scale</option>
+  */
   function test () {
     App().log('Requesting any Bluetooth Device...')
     navigator.bluetooth.requestDevice({
      // filters: [...] <- Prefer filters to save energy & show relevant devices.
       acceptAllDevices: true,
-      optionalServices: ['device_information']})
+      optionalServices: ['device_information', 'user_data', 'environmental_sensing']})
     .then(device => {
       App().log('Connecting to GATT Server...')
       return device.gatt.connect()
     })
     .then(server => {
       App().log('Getting Device Information Service...')
-      return server.getPrimaryService('device_information')
+      return server.getPrimaryService('user_data')
     })
     .then(service => {
       App().log('Getting Device Information Characteristics...')
