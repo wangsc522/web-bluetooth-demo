@@ -1,6 +1,7 @@
 /**
  * Blue2 Cooper Atkins Adapter
  */
+ /* global TextDecoder */
 function Blue2CA () {
   var adapters = {
     'init': function () {
@@ -31,8 +32,11 @@ function Blue2CA () {
     })
     .then(characteristics => {
       let queue = Promise.resolve()
+      let decoder = new TextDecoder('utf-8')
       characteristics.forEach(characteristic => {
-        App().log('>> Characteristic: ' + characteristic.uuid + ' ' + getSupportedProperties(characteristic))
+        queue = queue.then(_ => characteristic.readValue()).then(value => {
+          App().log('>> Characteristic: ' + characteristic.uuid + ' ' + getSupportedProperties(characteristic) + ' value: ' + decoder.decode(value))
+        })
       })
       return queue
     })
