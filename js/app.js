@@ -8,10 +8,10 @@ function App () {
     }
   }
 
-  var version = '10'
+  var version = '11'
 
   var log = function (message) {
-    console.info(message)
+    console.log(message)
     jQuery('.logtemplate').clone().removeClass('logtemplate').text(message).appendTo('#logwrapper')
   }
 
