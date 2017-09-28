@@ -48,17 +48,18 @@ function Blue2CA () {
   */
   function test () {
     App().log('Requesting any Bluetooth Device...')
+    var blue2TempService = 'f2b32c77-ea68-464b-9cd7-a22cbffb98bd'
     navigator.bluetooth.requestDevice({
       // filters: [],
       acceptAllDevices: true,
-      optionalServices: ['generic_access', 'device_information', 'user_data', 'environmental_sensing']})
+      optionalServices: [blue2TempService]})
     .then(device => {
       App().log('Connecting to GATT Server...')
       return device.gatt.connect()
     })
     .then(server => {
       App().log('Getting Device Information Service...')
-      return server.getPrimaryService('generic_access')
+      return server.getPrimaryService(blue2TempService)
     })
     .then(service => {
       App().log('Getting Device Information Characteristics...')
