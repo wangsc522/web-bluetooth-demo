@@ -1,5 +1,5 @@
-/* global $, App */
+/* global jQuery, App */
 // Load app once page fully loaded.
-$(function () {
+jQuery(function () {
   App().start()
 })

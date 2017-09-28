@@ -6,7 +6,7 @@ function Events () {
   }
 
   var init = function () {
-    $('#readBatteryLevel').on('click', Blue2CA().onReadBatteryLevelButtonClick)
+    jQuery('#readBatteryLevel').on('click', Blue2CA().onReadBatteryLevelButtonClick)
   }
 
   return adapters

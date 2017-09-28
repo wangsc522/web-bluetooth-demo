@@ -15,6 +15,6 @@
   "homepage": "https://hutch120.github.io/web-bluetooth-demo/",
   "dependencies": {},
   "standard": {
-    "globals": ["$", "_", "App", "Events", "BLEUtils", "Blue2CA"]
+    "globals": ["jQuery", "_", "App", "Events", "BLEUtils", "Blue2CA"]
   }
 }
