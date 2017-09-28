@@ -3,22 +3,22 @@ function App () {
     'start': function () {
       return start()
     },
-    'usermessage': function (message) {
-      return usermessage(message)
+    'log': function (message) {
+      return log(message)
     }
   }
 
-  var version = '9'
+  var version = '10'
 
-  var usermessage = function (message) {
+  var log = function (message) {
     console.info(message)
     jQuery('.logtemplate').clone().removeClass('logtemplate').text(message).appendTo('#logwrapper')
   }
 
   var start = function () {
-    App().usermessage('Version ' + version)
+    App().log('Version ' + version)
     var dateStr = new Date().toString()
-    App().usermessage('Date: ' + dateStr)
+    App().log('Date: ' + dateStr)
     Events().init()
   }
 

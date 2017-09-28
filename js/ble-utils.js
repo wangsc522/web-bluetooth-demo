@@ -9,7 +9,7 @@ function BLEUtils () {
     if (navigator.bluetooth) {
       return true
     } else {
-      App().console.log('Web Bluetooth API is not available. Please check your Chrome version is greater than 60, and device type is Android.')
+      App().log('Web Bluetooth API is not available. Please check your Chrome version is greater than 60, and device type is Android.')
       return false
     }
   }

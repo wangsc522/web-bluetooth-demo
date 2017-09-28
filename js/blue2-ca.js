@@ -20,16 +20,16 @@ function Blue2CA () {
     return (bluetoothDevice ? Promise.resolve() : requestDevice())
     .then(connectDeviceAndCacheCharacteristics)
     .then(_ => {
-      console.log('Reading Battery Level...')
+      App().log('Reading Battery Level...')
       return batteryLevelCharacteristic.readValue()
     })
     .catch(error => {
-      console.log('Argh! ' + error)
+      App().log('Argh! ' + error)
     })
   }
 
   var requestDevice = function () {
-    console.log('Requesting any Bluetooth Device...')
+    App().log('Requesting any Bluetooth Device...')
     return navigator.bluetooth.requestDevice({
      // filters: [...] <- Prefer filters to save energy & show relevant devices.
       acceptAllDevices: true,
@@ -48,14 +48,14 @@ function Blue2CA () {
       return Promise.resolve()
     }
 
-    console.log('Connecting to GATT Server...')
+    App().log('Connecting to GATT Server...')
     return bluetoothDevice.gatt.connect()
     .then(server => {
-      console.log('Getting Battery Service...')
+      App().log('Getting Battery Service...')
       return server.getPrimaryService('battery_service')
     })
     .then(service => {
-      console.log('Getting Battery Level Characteristic...')
+      App().log('Getting Battery Level Characteristic...')
       return service.getCharacteristic('battery_level')
     })
     .then(characteristic => {
@@ -71,32 +71,32 @@ function Blue2CA () {
    * listener has been added. */
   var handleBatteryLevelChanged = function (event) {
     let batteryLevel = event.target.value.getUint8(0)
-    console.log('> Battery Level is ' + batteryLevel + '%')
+    App().log('> Battery Level is ' + batteryLevel + '%')
   }
 
   var onStartNotificationsButtonClick = function () {
-    console.log('Starting Battery Level Notifications...')
+    App().log('Starting Battery Level Notifications...')
     batteryLevelCharacteristic.startNotifications()
     .then(_ => {
-      console.log('> Notifications started')
+      App().log('> Notifications started')
       document.querySelector('#startNotifications').disabled = true
       document.querySelector('#stopNotifications').disabled = false
     })
     .catch(error => {
-      console.log('Argh! ' + error)
+      App().log('Argh! ' + error)
     })
   }
 
   var onStopNotificationsButtonClick = function () {
-    console.log('Stopping Battery Level Notifications...')
+    App().log('Stopping Battery Level Notifications...')
     batteryLevelCharacteristic.stopNotifications()
     .then(_ => {
-      console.log('> Notifications stopped')
+      App().log('> Notifications stopped')
       document.querySelector('#startNotifications').disabled = false
       document.querySelector('#stopNotifications').disabled = true
     })
     .catch(error => {
-      console.log('Argh! ' + error)
+      App().log('Argh! ' + error)
     })
   }
 
@@ -107,14 +107,14 @@ function Blue2CA () {
     }
     // Note that it doesn't disconnect device.
     bluetoothDevice = null
-    console.log('> Bluetooth Device reset')
+    App().log('> Bluetooth Device reset')
   }
 
   var onDisconnected = function () {
-    console.log('> Bluetooth Device disconnected')
+    App().log('> Bluetooth Device disconnected')
     connectDeviceAndCacheCharacteristics()
     .catch(error => {
-      console.log('Argh! ' + error)
+      App().log('Argh! ' + error)
     })
   }
 
