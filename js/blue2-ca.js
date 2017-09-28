@@ -52,11 +52,20 @@ function Blue2CA () {
     return bluetoothDevice.gatt.connect()
     .then(server => {
       App().log('Getting Battery Service...')
-      return server.getPrimaryService('battery_service')
+      return server.getPrimaryService()
     })
-    .then(service => {
-      App().log('Getting Battery Level Characteristic...')
-      return service.getCharacteristic('battery_level')
+    .then(services => {
+      App().log('Getting Characteristics...')
+      let queue = Promise.resolve()
+      services.forEach(service => {
+        queue = queue.then(_ => service.getCharacteristics().then(characteristics => {
+          App().log('> Service: ' + service.uuid)
+          characteristics.forEach(characteristic => {
+            App().log('>> Characteristic: ' + characteristic.uuid + ' ' + getSupportedProperties(characteristic))
+          })
+        }))
+      })
+      return queue
     })
     .then(characteristic => {
       batteryLevelCharacteristic = characteristic
@@ -64,6 +73,17 @@ function Blue2CA () {
       document.querySelector('#startNotifications').disabled = false
       document.querySelector('#stopNotifications').disabled = true
     })
+  }
+
+  /* Utils */
+  var getSupportedProperties = function (characteristic) {
+    let supportedProperties = []
+    for (const p in characteristic.properties) {
+      if (characteristic.properties[p] === true) {
+        supportedProperties.push(p.toUpperCase())
+      }
+    }
+    return '[' + supportedProperties.join(', ') + ']'
   }
 
   /* This function will be called when `readValue` resolves and
