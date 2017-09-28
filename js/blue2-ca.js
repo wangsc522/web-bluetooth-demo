@@ -49,7 +49,7 @@ function Blue2CA () {
   function test () {
     App().log('Requesting any Bluetooth Device...')
     navigator.bluetooth.requestDevice({
-      filters: ['blue2'],
+      // filters: [],
       acceptAllDevices: true,
       optionalServices: ['generic_access', 'device_information', 'user_data', 'environmental_sensing']})
     .then(device => {
@@ -67,6 +67,8 @@ function Blue2CA () {
     .then(characteristics => {
       let queue = Promise.resolve()
       let decoder = new TextDecoder('utf-8')
+      // DODC HERE
+      // file:///C:/Users/Admin/Dropbox/Pongolabs%20-%20Team/Projects/Clients/MartinBrower-QIP/170516%20Bluetooth%20probes/Bluetooth%20Wand%20API-1.pdf
       characteristics.forEach(characteristic => {
         queue = queue.then(_ => characteristic.readValue()).then(value => {
           App().log('>> Characteristic: ' + characteristic.uuid + ' value: ' + decoder.decode(value))
