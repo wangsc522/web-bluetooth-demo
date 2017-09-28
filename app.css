@@ -1,3 +1,7 @@
+#wrapper {
+  padding: 10px;
+}
+
 .command {
   padding: 10px;
 }
@@ -10,4 +14,8 @@
 
 #log {
   font-size: 20px;
+}
+
+#blue2icon {
+  height: 40px;
 }

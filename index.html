@@ -1,19 +1,47 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <link href="app.css" rel="stylesheet" />
-</head>
 
-<body>
-  <div class="command">
-    <button id="start-demo" class="simple-button">Start demo</button>
-  </div>
-  <div id="log"></div>
+  <title>Blue2 Demo</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://code.getmdl.io/1.3.0/material.grey-light_blue.min.css" rel="stylesheet" />
+  <link href="app.css" rel="stylesheet" />
+  <link href="favicon.png?v=blue2-v1" id="favicon" rel="shortcut icon" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js" type="text/javascript" defer></script>
+  <script src="https://code.getmdl.io/1.3.0/material.min.js" type="text/javascript" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript" defer></script>
 
   <script src="utils.js" type="text/javascript" defer></script>
   <script src="automatic-reconnect-async-await.js" type="text/javascript" defer></script>
   <script src="events.js" type="text/javascript" defer></script>
   <script src="app.js" type="text/javascript" defer></script>
+
+
+</head>
+
+<body>
+
+  <div id="wrapper">
+    <img id="blue2icon" src="blue2-icon100x100.png" />
+    <span class="mdl-typography--headline">Blue2 Bluetooth Demo</span>
+    <br />
+    <br />
+    <div class="mdl-typography--title">Blue2 Temperature Sensor Browser Demo</div>
+    <br />
+    <button id="start-demo" class="login mdl-button mdl-js-button mdl-button--raised">Start</button>
+    <br />
+    <br />
+    <div id="log"></div>
+  </div>
+
+
 </body>
 
 </html>
