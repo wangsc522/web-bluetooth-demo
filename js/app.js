@@ -8,7 +8,7 @@ function App () {
     }
   }
 
-  var version = '8'
+  var version = '9'
 
   var usermessage = function (message) {
     console.info(message)
@@ -17,6 +17,8 @@ function App () {
 
   var start = function () {
     App().usermessage('Version ' + version)
+    var dateStr = new Date().toString()
+    App().usermessage('Date: ' + dateStr)
     Events().init()
   }
 
