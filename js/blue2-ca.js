@@ -49,16 +49,16 @@ function Blue2CA () {
   function test () {
     App().log('Requesting any Bluetooth Device...')
     navigator.bluetooth.requestDevice({
-     // filters: [...] <- Prefer filters to save energy & show relevant devices.
+      filters: ['blue2'],
       acceptAllDevices: true,
-      optionalServices: ['device_information', 'user_data', 'environmental_sensing']})
+      optionalServices: ['generic_attribute', 'device_information', 'user_data', 'environmental_sensing']})
     .then(device => {
       App().log('Connecting to GATT Server...')
       return device.gatt.connect()
     })
     .then(server => {
       App().log('Getting Device Information Service...')
-      return server.getPrimaryService('user_data')
+      return server.getPrimaryService('generic_attribute')
     })
     .then(service => {
       App().log('Getting Device Information Characteristics...')
