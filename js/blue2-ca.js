@@ -51,14 +51,14 @@ function Blue2CA () {
     navigator.bluetooth.requestDevice({
       filters: ['blue2'],
       acceptAllDevices: true,
-      optionalServices: ['generic_attribute', 'device_information', 'user_data', 'environmental_sensing']})
+      optionalServices: ['generic_access', 'device_information', 'user_data', 'environmental_sensing']})
     .then(device => {
       App().log('Connecting to GATT Server...')
       return device.gatt.connect()
     })
     .then(server => {
       App().log('Getting Device Information Service...')
-      return server.getPrimaryService('generic_attribute')
+      return server.getPrimaryService('generic_access')
     })
     .then(service => {
       App().log('Getting Device Information Characteristics...')
@@ -69,7 +69,7 @@ function Blue2CA () {
       let decoder = new TextDecoder('utf-8')
       characteristics.forEach(characteristic => {
         queue = queue.then(_ => characteristic.readValue()).then(value => {
-          App().log('>> Characteristic: ' + characteristic.uuid + ' ' + getSupportedProperties(characteristic) + ' value: ' + decoder.decode(value))
+          App().log('>> Characteristic: ' + characteristic.uuid + ' value: ' + decoder.decode(value))
         })
       })
       return queue
