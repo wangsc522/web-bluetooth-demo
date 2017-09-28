@@ -6,9 +6,39 @@ function Blue2CA () {
     'init': function () {
       return init()
     },
-    'onReadBatteryLevelButtonClick': function () {
-      return onReadBatteryLevelButtonClick()
+    'test': function () {
+      return test()
     }
+  }
+
+  function test () {
+    App().log('Requesting any Bluetooth Device...')
+    navigator.bluetooth.requestDevice({
+     // filters: [...] <- Prefer filters to save energy & show relevant devices.
+      acceptAllDevices: true,
+      optionalServices: ['device_information']})
+    .then(device => {
+      App().log('Connecting to GATT Server...')
+      return device.gatt.connect()
+    })
+    .then(server => {
+      App().log('Getting Device Information Service...')
+      return server.getPrimaryService('device_information')
+    })
+    .then(service => {
+      App().log('Getting Device Information Characteristics...')
+      return service.getCharacteristics()
+    })
+    .then(characteristics => {
+      let queue = Promise.resolve()
+      characteristics.forEach(characteristic => {
+        App().log('>> Characteristic: ' + characteristic.uuid + ' ' + getSupportedProperties(characteristic))
+      })
+      return queue
+    })
+    .catch(error => {
+      App().log('Argh! ' + error)
+    })
   }
 
   var bluetoothDevice
@@ -51,8 +81,9 @@ function Blue2CA () {
     App().log('Connecting to GATT Server...')
     return bluetoothDevice.gatt.connect()
     .then(server => {
-      App().log('Getting Battery Service...')
-      return server.getPrimaryService()
+      var servicename = 'device_information'
+      App().log('Getting Services for' + servicename)
+      return server.getPrimaryService(servicename)
     })
     .then(services => {
       App().log('Getting Characteristics...')
@@ -67,11 +98,8 @@ function Blue2CA () {
       })
       return queue
     })
-    .then(characteristic => {
-      batteryLevelCharacteristic = characteristic
-      batteryLevelCharacteristic.addEventListener('characteristicvaluechanged', handleBatteryLevelChanged)
-      document.querySelector('#startNotifications').disabled = false
-      document.querySelector('#stopNotifications').disabled = true
+    .catch(error => {
+      App().log(error)
     })
   }
 
