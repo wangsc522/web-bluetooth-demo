@@ -12,7 +12,7 @@ function App () {
 
   var usermessage = function (message) {
     console.info(message)
-    $('.logtemplate').clone().removeClass('logtemplate').text(message).appendTo('#logwrapper')
+    jQuery('.logtemplate').clone().removeClass('logtemplate').text(message).appendTo('#logwrapper')
   }
 
   var start = function () {
