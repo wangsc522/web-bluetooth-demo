@@ -41,12 +41,12 @@ function Blue2CA () {
         if (characteristic && characteristic.uuid && characteristic.uuid === blue2TempASCIICharacteristic) {
           queue = queue.then(_ => characteristic.readValue()).then(value => {
             value = decoder.decode(value)
-            value = value.replace(/[^a-z0-9.]+/g, ' ')
+            value = value.replace(/[^A-Z0-9.]+/g, ' ')
 
             App().log('Raw value: ' + value)
 
             if (value.indexOf(' ') !== -1) {
-              App().log('>> Temperature characteristic value not found!')
+              App().log('Temperature characteristic value not found!')
               return
             }
             var valueArr = value.split(' ')
