@@ -13,7 +13,7 @@ function Blue2CA () {
   }
 
   function test () {
-    App().log('Requesting any Bluetooth Device...')
+    App().log('Requesting bluetooth device...')
     var blue2TempService = 'f2b32c77-ea68-464b-9cd7-a22cbffb98bd'
     var blue2TempASCIICharacteristic = '78544003-4394-4fc2-8cfd-be6a00aa701b'
     navigator.bluetooth.requestDevice({
@@ -21,15 +21,15 @@ function Blue2CA () {
       acceptAllDevices: true,
       optionalServices: [blue2TempService]})
     .then(device => {
-      App().log('Connecting to GATT Server...')
+      App().log('Connecting to device ...')
       return device.gatt.connect()
     })
     .then(server => {
-      App().log('Getting Device Information Service...')
+      App().log('Getting device service...')
       return server.getPrimaryService(blue2TempService)
     })
     .then(service => {
-      App().log('Getting Device Information Characteristics...')
+      App().log('Getting device characteristics...')
       return service.getCharacteristics()
     })
     .then(characteristics => {
@@ -41,21 +41,27 @@ function Blue2CA () {
         if (characteristic && characteristic.uuid && characteristic.uuid === blue2TempASCIICharacteristic) {
           queue = queue.then(_ => characteristic.readValue()).then(value => {
             value = decoder.decode(value)
-            value = value.toLowerCase().replace(/[^a-z0-9]+/g, ' ')
-            /*
+            value = value.replace(/[^a-z0-9.]+/g, ' ')
+
+            App().log('Raw value: ' + value)
+
             if (value.indexOf(' ') !== -1) {
               App().log('>> Temperature characteristic value not found!')
               return
             }
             var valueArr = value.split(' ')
-            if ( valueArr.length !== 2) {
+            if (valueArr.length !== 2) {
               App().log('>> Temperature characteristic format invalid!')
               return
             }
             var temp = valueArr[0]
             var scale = valueArr[1] // F or C
-            */
-            App().log('>> Temperature: ' + value)
+            if (scale === 'F') {
+              temp = (temp * 1.8) + 32
+              scale = 'C'
+            }
+
+            App().log('Temperature: ' + temp + ' ' + scale)
           })
         }
       })

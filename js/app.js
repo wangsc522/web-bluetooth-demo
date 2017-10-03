@@ -8,7 +8,7 @@ function App () {
     }
   }
 
-  var version = '21'
+  var version = '22'
 
   var log = function (message) {
     console.log(message)
