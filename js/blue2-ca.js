@@ -45,7 +45,7 @@ function Blue2CA () {
 
             App().log('Raw value: ' + value)
 
-            if (value.indexOf(' ') !== -1) {
+            if (value.indexOf(' ') === -1) {
               App().log('Temperature characteristic value not found!')
               return
             }
@@ -58,6 +58,7 @@ function Blue2CA () {
             var scale = valueArr[1] // F or C
             if (scale === 'F') {
               temp = (temp - 32) * 5 / 9
+              temp = Math.round(temp * 100) / 100
               scale = 'C'
             }
 
