@@ -41,7 +41,7 @@ function Blue2CA () {
         if (characteristic && characteristic.uuid && characteristic.uuid === blue2TempASCIICharacteristic) {
           queue = queue.then(_ => characteristic.readValue()).then(value => {
             value = decoder.decode(value)
-            value = value.replace(/[^A-Z0-9.]+/g, ' ')
+            value = value.replace(/[^A-Z0-9.]+/g, ' ').trim()
 
             App().log('Raw value: ' + value)
 
@@ -51,7 +51,7 @@ function Blue2CA () {
             }
             var valueArr = value.split(' ')
             if (valueArr.length !== 2) {
-              App().log('>> Temperature characteristic format invalid!')
+              App().log('Temperature characteristic format invalid! ' + valueArr.length)
               return
             }
             var temp = valueArr[0]
