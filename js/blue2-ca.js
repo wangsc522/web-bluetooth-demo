@@ -57,7 +57,7 @@ function Blue2CA () {
             var temp = valueArr[0]
             var scale = valueArr[1] // F or C
             if (scale === 'F') {
-              temp = (temp * 1.8) + 32
+              temp = (temp - 32) * 5 / 9
               scale = 'C'
             }
 
