@@ -38,9 +38,26 @@ function Blue2CA () {
       // DODC HERE
       // file:///C:/Users/Admin/Dropbox/Pongolabs%20-%20Team/Projects/Clients/MartinBrower-QIP/170516%20Bluetooth%20probes/Bluetooth%20Wand%20API-1.pdf
       characteristics.forEach(characteristic => {
-        queue = queue.then(_ => characteristic.readValue()).then(value => {
-          App().log('>> Characteristic: ' + characteristic.uuid + ' value: ' + decoder.decode(value))
-        })
+        if (characteristic && characteristic.uuid && characteristic.uuid === blue2TempASCIICharacteristic) {
+          queue = queue.then(_ => characteristic.readValue()).then(value => {
+            value = decoder.decode(value)
+            value = value.toLowerCase().replace(/[^a-z0-9]+/g, ' ')
+            /*
+            if (value.indexOf(' ') !== -1) {
+              App().log('>> Temperature characteristic value not found!')
+              return
+            }
+            var valueArr = value.split(' ')
+            if ( valueArr.length !== 2) {
+              App().log('>> Temperature characteristic format invalid!')
+              return
+            }
+            var temp = valueArr[0]
+            var scale = valueArr[1] // F or C
+            */
+            App().log('>> Temperature: ' + value)
+          })
+        }
       })
       return queue
     })
